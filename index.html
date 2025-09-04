@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>MOLKO - Kişisel Blog</title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+ <style>
+ :root {
+ --primary-color: #2e7d32;
+ --secondary-color: #4caf50;
+ --accent-color: #ff9800;
+ --text-color: #333;
+ --bg-color: #f8f9fa;
+ --card-bg: #ffffff;
+ --header-bg: #ffffff;
+ --footer-bg: #1b5e20;
+ --footer-text: #f8f9fa;
+ --border-color: #ddd;
+ --tag-bg: #e8f5e9;
+ --tag-text: #2e7d32;
+ --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+ --transition: all 0.3s ease;
+ --tarih-color: #3f51b5;
+ --cografya-color: #009688;
+ --teknoloji-color: #ff5722;
+ --edebiyat-color: #9c27b0;
+ --matematik-color: #2196f3;
+ --biyoloji-color: #4caf50;
+ --background-image: none;
+ }
+
+ [data-theme="dark"] {
+ --primary-color: #4caf50;
+ --secondary-color: #81c784;
+ --accent-color: #ffa726;
+ --text-color: #e9ecef;
+ --bg-color: #121212;
+ --card-bg: #1e1e1e;
+ --header-bg: #1e1e1e;
+ --footer-bg: #0d4711;
+ --footer-text: #e9ecef;
+ --border-color: #444;
+ --tag-bg: #1b5e20;
+ --tag-text: #e9ecef;
+ --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+ --tarih-color: #5c6bc0;
+ --cografya-color: #4db6ac;
+ --teknoloji-color: #ff8a65;
+ --edebiyat-color: #ba68c8;
+ --matematik-color: #42a5f5;
+ --biyoloji-color: #81c784;
+ --background-image: none;
+ }
+
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ transition: var(--transition);
+ }
+
+ body {
+ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+ background-color: var(--bg-color);
+ background-image: var(--background-image);
+ background-size: cover;
+ background-attachment: fixed;
+ color: var(--text-color);
+ line-height: 1.7;
+ font-size: 16px;
+ }
+
+ .container {
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 0 24px;
+ }
+
+ header {
+ background-color: var(--header-bg);
+ box-shadow: var(--shadow);
+ position: sticky;
+ top: 0;
+ z-index: 1000;
+ }
+
+ .header-content {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 1.5rem 0;
+ gap: 2.5rem;
+ }
+
+ .logo {
+ font-family: 'Orbitron', sans-serif;
+ font-size: 2.5rem;
+ font-weight: 700;
+ color: var(--primary-color);
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ transition: transform 0.3s ease, text-shadow 0.3s ease;
+ }
+
+ .logo:hover {
+ transform: scale(1.05);
+ text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+ }
+
+ nav {
+ flex-grow: 1;
+ }
+
+ nav ul {
+ display: flex;
+ list-style: none;
+ gap: 1.5rem;
+ flex-wrap: wrap;
+ justify-content: flex-start;
+ }
+
+ nav ul li a {
+ text-decoration: none;
+ color: var(--text-color);
+ font-weight: 500;
+ padding: 0.6rem 1rem;
+ border-radius: 6px;
+ transition: var(--transition);
+ }
+
+ nav ul li a:hover, nav ul li a.active {
+ background-color: var(--primary-color);
+ color: white;
+ }
+
+ .header-buttons {
+ display: flex;
+ align-items: center;
+ gap: 1.5rem;
+ flex-shrink: 0;
+ }
+
+ .theme-toggle, .admin-toggle, .favorites-toggle, .background-toggle {
+ background: none;
+ border: none;
+ cursor: pointer;
+ font-size: 1.6rem;
+ color: var(--text-color);
+ transition: var(--transition);
+ }
+
+ .theme-toggle:hover, .admin-toggle:hover, .favorites-toggle:hover, .background-toggle:hover {
+ color: var(--accent-color);
+ }
+
+ .hero {
+ text-align: center;
+ padding: 4rem 0;
+ background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+ color: white;
+ margin-bottom: 3rem;
+ border-radius: 0 0 12px 12px;
+ }
+
+ .hero h1 {
+ font-size: 3rem;
+ margin-bottom: 1rem;
+ }
+
+ .hero p {
+ font-size: 1.3rem;
+ max-width: 800px;
+ margin: 0 auto;
+ }
+
+ .filters {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+ gap: 1.5rem;
+ margin-bottom: 3rem;
+ padding: 1.5rem;
+ background-color: var(--card-bg);
+ border-radius: 12px;
+ box-shadow: var(--shadow);
+ }
+
+ .filter-group h3 {
+ margin-bottom: 0.75rem;
+ color: var(--primary-color);
+ font-size: 1.2rem;
+ font-weight: 600;
+ }
+
+ .tags {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 0.6rem;
+ }
+
+ .tag {
+ background-color: var(--tag-bg);
+ color: var(--tag-text);
+ padding: 0.4rem 1rem;
+ border-radius: 20px;
+ font-size: 0.95rem;
+ cursor: pointer;
+ transition: var(--transition);
+ }
+
+ .tag:hover, .tag.active {
+ background-color: var(--primary-color);
+ color: white;
+ }
+
+ .search-box {
+ padding: 0.75rem;
+ border: 1px solid var(--border-color);
+ border-radius: 6px;
+ width: 100%;
+ background-color: var(--bg-color);
+ color: var(--text-color);
+ font-size: 1rem;
+ }
+
+ .blog-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+ gap: 2rem;
+ margin-bottom: 3rem;
+ }
+
+ .blog-card {
+ background-color: var(--card-bg);
+ border-radius: 12px;
+ overflow: hidden;
+ box-shadow: var(--shadow);
+ transition: transform 0.3s ease, box-shadow 0.3s ease;
+ cursor: pointer;
+ position: relative;
+ }
+
+ .blog-card:hover {
+ transform: translateY(-8px);
+ box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+ }
+
+ .card-img {
+ height: 200px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ color: white;
+ font-size: 3.5rem;
+ background-size: cover;
+ background-position: center;
+ position: relative;
+ }
+
+ .card-img::after {
+ content: '';
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background: rgba(0, 0, 0, 0.2);
+ transition: var(--transition);
+ }
+
+ .blog-card:hover .card-img::after {
+ background: rgba(0, 0, 0, 0.3);
+ }
+
+ .tarih { background-color: var(--tarih-color); }
+ .cografya { background-color: var(--cografya-color); }
+ .teknoloji { background-color: var(--teknoloji-color); }
+ .edebiyat { background-color: var(--edebiyat-color); }
+ .matematik { background-color: var(--matematik-color); }
+ .biyoloji { background-color: var(--biyoloji-color); }
+
+ .card-content {
+ padding: 1.75rem;
+ }
+
+ .card-content h3 {
+ margin-bottom: 0.75rem;
+ font-size: 1.5rem;
+ font-weight: 600;
+ }
+
+ .date, .reading-time {
+ color: #6c757d;
+ font-size: 0.9rem;
+ margin-bottom: 1rem;
+ }
+
+ .excerpt {
+ margin-bottom: 1.25rem;
+ font-size: 1rem;
+ color: #555;
+ }
+
+ .card-tags {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 0.6rem;
+ }
+
+ .favorite-btn {
+ position: absolute;
+ top: 10px;
+ right: 10px;
+ background: none;
+ border: none;
+ font-size: 1.5rem;
+ color: #ccc;
+ cursor: pointer;
+ transition: var(--transition);
+ z-index: 10;
+ }
+
+ .favorite-btn.active {
+ color: #ff4444;
+ }
+
+ .pagination {
+ display: flex;
+ justify-content: center;
+ gap: 1rem;
+ margin: 2rem 0;
+ }
+
+ .pagination button {
+ padding: 0.75rem 1.5rem;
+ border: none;
+ background-color: var(--primary-color);
+ color: white;
+ border-radius: 6px;
+ cursor: pointer;
+ transition: var(--transition);
+ }
+
+ .pagination button:hover {
+ background-color: var(--secondary-color);
+ }
+
+ .pagination button:disabled {
+ background-color: #ccc;
+ cursor: not-allowed;
+ }
+
+ footer {
+ background-color: var(--footer-bg);
+ color: var(--footer-text);
+ padding: 2.5rem 0;
+ text-align: center;
+ }
+
+ .footer-content {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 1rem;
+ }
+
+ .social-links a {
+ color: var(--footer-text);
+ font-size: 1.6rem;
+ transition: var(--transition);
+ }
+
+ .social-links a:hover {
+ color: var(--accent-color);
+ }
+
+ .hidden {
+ display: none !important;
+ }
+
+ .admin-panel {
+ background-color: var(--card-bg);
+ padding: 2.5rem;
+ border-radius: 12px;
+ box-shadow: var(--shadow);
+ margin-bottom: 3rem;
+ }
+
+ .admin-tabs {
+ display: flex;
+ gap: 1rem;
+ margin-bottom: 1.5rem;
+ flex-wrap: wrap;
+ }
+
+ .tab-btn {
+ padding: 0.85rem 2rem;
+ border: none;
+ background-color: var(--bg-color);
+ border-radius: 6px;
+ cursor: pointer;
+ font-weight: 600;
+ font-size: 1.1rem;
+ transition: var(--transition);
+ }
+
+ .tab-btn.active {
+ background-color: var(--primary-color);
+ color: white;
+ }
+
+ .admin-panel h2 {
+ color: var(--primary-color);
+ margin-bottom: 2rem;
+ text-align: center;
+ font-size: 2rem;
+ }
+
+ .admin-form {
+ display: grid;
+ gap: 1.5rem;
+ }
+
+ .form-group label {
+ margin-bottom: 0.5rem;
+ font-weight: 500;
+ font-size: 1.1rem;
+ }
+
+ .form-control {
+ padding: 0.85rem;
+ border: 1px solid var(--border-color);
+ border-radius: 6px;
+ background-color: var(--bg-color);
+ color: var(--text-color);
+ font-size: 1rem;
+ }
+
+ .form-control:focus {
+ outline: none;
+ border-color: var(--primary-color);
+ box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+ }
+
+ .editor {
+ border: 1px solid var(--border-color);
+ padding: 1rem;
+ background-color: var(--bg-color);
+ border-radius: 6px;
+ min-height: 200px;
+ outline: none;
+ resize: vertical;
+ }
+
+ .editor img {
+ max-width: 100%;
+ height: auto;
+ border-radius: 8px;
+ margin: 1rem 0;
+ }
+
+ .image-small { max-width: 200px; }
+ .image-medium { max-width: 400px; }
+ .image-large { max-width: 600px; }
+ .image-left { float: left; margin-right: 1.5rem; }
+ .image-center { display: block; margin-left: auto; margin-right: auto; }
+ .image-right { float: right; margin-left: 1.5rem; }
+
+ .post-content img {
+ max-width: 100%;
+ height: auto;
+ border-radius: 12px;
+ margin: 1.5rem 0;
+ box-shadow: var(--shadow);
+ }
+
+ .post-content .image-small { max-width: 200px; }
+ .post-content .image-medium { max-width: 400px; }
+ .post-content .image-large { max-width: 600px; }
+ .post-content .image-left { float: left; margin-right: 1.5rem; }
+ .post-content .image-center { display: block; margin-left: auto; margin-right: auto; }
+ .post-content .image-right { float: right; margin-left: 1.5rem; }
+
+ .btn {
+ padding: 0.85rem 2rem;
+ border: none;
+ border-radius: 6px;
+ cursor: pointer;
+ font-weight: 500;
+ font-size: 1rem;
+ transition: var(--transition);
+ }
+
+ .btn-primary {
+ background-color: var(--primary-color);
+ color: white;
+ }
+
+ .btn-primary:hover {
+ background-color: var(--secondary-color);
+ }
+
+ .btn-danger {
+ background-color: #dc3545;
+ color: white;
+ }
+
+ .btn-danger:hover {
+ background-color: #c82333;
+ }
+
+ .post-detail {
+ background-color: var(--card-bg);
+ padding: 2.5rem;
+ border-radius: 12px;
+ box-shadow: var(--shadow);
+ margin-bottom: 3rem;
+ }
+
+ .post-title {
+ font-size: 2.8rem;
+ margin-bottom: 1.5rem;
+ }
+
+ .post-meta {
+ display: flex;
+ gap: 1.5rem;
+ color: #6c757d;
+ margin-bottom: 1.5rem;
+ font-size: 1rem;
+ }
+
+ .post-content {
+ line-height: 1.8;
+ font-size: 1.1rem;
+ }
+
+ .music-section {
+ margin-top: 2rem;
+ padding: 1.5rem;
+ background-color: var(--bg-color);
+ border-radius: 8px;
+ border: 1px solid var(--border-color);
+ }
+
+ .music-section h3 {
+ margin-bottom: 1rem;
+ color: var(--primary-color);
+ }
+
+ .music-player {
+ margin: 0.75rem 0;
+ padding: 1rem;
+ background-color: var(--card-bg);
+ border-radius: 8px;
+ box-shadow: var(--shadow);
+ }
+
+ .music-player iframe {
+ width: 100%;
+ height: 80px;
+ border: none;
+ border-radius: 8px;
+ }
+
+ .back-button {
+ display: inline-flex;
+ align-items: center;
+ margin-bottom: 2rem;
+ padding: 0.75rem 1.5rem;
+ background-color: var(--primary-color);
+ color: white;
+ text-decoration: none;
+ border-radius: 6px;
+ transition: var(--transition);
+ }
+
+ .back-button:hover {
+ background-color: var(--secondary-color);
+ }
+
+ .login-form {
+ max-width: 450px;
+ margin: 3rem auto;
+ padding: 2.5rem;
+ background-color: var(--card-bg);
+ border-radius: 12px;
+ box-shadow: var(--shadow);
+ }
+
+ .editor-toolbar {
+ display: flex;
+ gap: 0.75rem;
+ margin-bottom: 1rem;
+ flex-wrap: wrap;
+ }
+
+ .editor-button {
+ padding: 0.6rem;
+ background-color: var(--bg-color);
+ border: 1px solid var(--border-color);
+ border-radius: 6px;
+ cursor: pointer;
+ transition: var(--transition);
+ }
+
+ .editor-button:hover {
+ background-color: var(--primary-color);
+ color: white;
+ }
+
+ .image-upload {
+ display: flex;
+ flex-direction: column;
+ gap: 0.75rem;
+ }
+
+ .upload-preview {
+ max-width: 100%;
+ max-height: 250px;
+ border-radius: 12px;
+ margin-top: 0.75rem;
+ }
+
+ .tag-suggestions {
+ position: absolute;
+ background-color: var(--card-bg);
+ border: 1px solid var(--border-color);
+ border-radius: 6px;
+ max-height: 200px;
+ overflow-y: auto;
+ width: 100%;
+ z-index: 100;
+ box-shadow: var(--shadow);
+ }
+
+ .tag-suggestion {
+ padding: 0.5rem 1rem;
+ cursor: pointer;
+ transition: var(--transition);
+ }
+
+ .tag-suggestion:hover {
+ background-color: var(--primary-color);
+ color: white;
+ }
+
+ .preview-container {
+ background-color: var(--card-bg);
+ padding: 2rem;
+ border-radius: 12px;
+ box-shadow: var(--shadow);
+ margin-top: 2rem;
+ }
+
+ .archive-section, .manage-posts {
+ background-color: var(--card-bg);
+ padding: 2rem;
+ border-radius: 12px;
+ box-shadow: var(--shadow);
+ margin-bottom: 3rem;
+ }
+
+ .archive-section h3, .manage-posts h3 {
+ margin-bottom: 1rem;
+ color: var(--primary-color);
+ }
+
+ .archive-list, .post-list {
+ list-style: none;
+ }
+
+ .archive-list li, .post-list li {
+ margin: 0.5rem 0;
+ display: flex;
+ align-items: center;
+ gap: 1rem;
+ }
+
+ .archive-list a, .post-list a {
+ color: var(--text-color);
+ text-decoration: none;
+ flex-grow: 1;
+ }
+
+ .archive-list a:hover, .post-list a:hover {
+ color: var(--primary-color);
+ }
+
+ .post-list .btn {
+ padding: 0.5rem 1rem;
+ font-size: 0.9rem;
+ }
+
+ @media (max-width: 768px) {
+ .header-content {
+ flex-direction: column;
+ gap: 1.5rem;
+ padding: 1rem 0;
+ }
+
+ nav ul {
+ justify-content: center;
+ gap: 1rem;
+ }
+
+ .filters {
+ grid-template-columns: 1fr;
+ }
+
+ .hero h1 {
+ font-size: 2rem;
+ }
+
+ .hero p {
+ font-size: 1.1rem;
+ }
+
+ .post-title {
+ font-size: 2rem;
+ }
+
+ .admin-tabs {
+ flex-direction: column;
+ }
+
+ .tab-btn {
+ width: 100%;
+ text-align: center;
+ }
+ }
+ </style>
+</head>
+<body>
+ <header>
+ <div class="container">
+ <div class="header-content">
+ <div class="logo">MOLKO</div>
+ <nav>
+ <ul id="nav-menu">
+ <li><a href="#" class="nav-link active" data-category="all">Tümü</a></li>
+ <li><a href="#" class="nav-link" data-category="tarih">Tarih</a></li>
+ <li><a href="#" class="nav-link" data-category="cografya">Coğrafya</a></li>
+ <li><a href="#" class="nav-link" data-category="teknoloji">Teknoloji</a></li>
+ <li><a href="#" class="nav-link" data-category="edebiyat">Edebiyat</a></li>
+ <li><a href="#" class="nav-link" data-category="matematik">Matematik</a></li>
+ <li><a href="#" class="nav-link" data-category="biyoloji">Biyoloji</a></li>
+ <li><a href="#" class="nav-link" data-section="favorites">Favoriler</a></li>
+ <li><a href="#" class="nav-link" data-section="archive">Arşiv</a></li>
+ </ul>
+ </nav>
+ <div class="header-buttons">
+ <button class="favorites-toggle" title="Favoriler" aria-label="Favoriler"><i class="fas fa-heart"></i></button>
+ <button class="admin-toggle" title="Admin Paneli" aria-label="Admin Paneli"><i class="fas fa-lock"></i></button>
+ <button class="theme-toggle" title="Tema Değiştir" aria-label="Tema Değiştir"><i class="fas fa-moon"></i></button>
+ <button class="background-toggle" title="Arka Plan Değiştir" aria-label="Arka Plan Değiştir"><i class="fas fa-image"></i></button>
+ </div>
+ </div>
+ </div>
+ </header>
+
+ <section class="hero">
+ <div class="container">
+ <h1>MOLKO - Kişisel Blog</h1>
+ <p>Bilgi paylaştıkça çoğalır. İlgi alanlarıma dair yazılarımı burada topluyorum.</p>
+ </div>
+ </section>
+
+ <main class="container">
+ <section id="admin-section" class="admin-panel hidden">
+ <h2>Yazı ve Kategori Yönetimi</h2>
+ <div class="admin-tabs">
+ <button class="tab-btn active" data-tab="post">Yazı Ekle</button>
+ <button class="tab-btn" data-tab="category">Kategori Ekle</button>
+ <button class="tab-btn" data-tab="manage">Yazıları Yönet</button>
+ </div>
+ <form id="admin-form" class="admin-form">
+ <input type="hidden" id="post-id">
+ <div class="form-group">
+ <label for="post-title">Başlık</label>
+ <input type="text" id="post-title" class="form-control" required aria-required="true">
+ </div>
+ <div class="form-group">
+ <label for="post-category">Kategori</label>
+ <select id="post-category" class="form-control" required aria-required="true"></select>
+ </div>
+ <div class="form-group">
+ <label for="post-content">İçerik</label>
+ <div class="editor-toolbar">
+ <button type="button" class="editor-button" data-command="bold" title="Kalın (Ctrl+B)" aria-label="Kalın"><i class="fas fa-bold"></i></button>
+ <button type="button" class="editor-button" data-command="italic" title="İtalik (Ctrl+I)" aria-label="İtalik"><i class="fas fa-italic"></i></button>
+ <button type="button" class="editor-button" data-command="insertUnorderedList" title="Liste" aria-label="Liste"><i class="fas fa-list-ul"></i></button>
+ <button type="button" class="editor-button" data-command="insertImage" title="Görsel Ekle (Dosya)" aria-label="Görsel Ekle (Dosya)"><i class="fas fa-image"></i></button>
+ <button type="button" class="editor-button" data-command="insertImageUrl" title="Görsel Ekle (URL)" aria-label="Görsel Ekle (URL)"><i class="fas fa-link"></i></button>
+ <select class="editor-button image-size" title="Görsel Boyutu" aria-label="Görsel Boyutu">
+ <option value="small">Küçük</option>
+ <option value="medium" selected>Orta</option>
+ <option value="large">Büyük</option>
+ </select>
+ <select class="editor-button image-align" title="Görsel Hizalaması" aria-label="Görsel Hizalaması">
+ <option value="left">Sola Hizala</option>
+ <option value="center" selected>Ortala</option>
+ <option value="right">Sağa Hizala</option>
+ </select>
+ <button type="button" class="editor-button preview-btn" title="Önizleme" aria-label="Önizleme"><i class="fas fa-eye"></i></button>
+ </div>
+ <div id="post-content" class="editor" contenteditable="true" aria-multiline="true"></div>
+ <div id="preview-container" class="preview-container hidden"></div>
+ </div>
+ <div class="form-group">
+ <label for="post-tags">Etiketler (virgülle ayırın)</label>
+ <input type="text" id="post-tags" class="form-control" required aria-required="true">
+ <div id="tag-suggestions" class="tag-suggestions hidden"></div>
+ </div>
+ <div class="form-group">
+ <label for="post-image">Kapak Görseli (isteğe bağlı)</label>
+ <div class="image-upload">
+ <input type="file" id="post-image" accept="image/*">
+ <img id="image-preview" class="upload-preview hidden" src="" alt="Önizleme">
+ </div>
+ </div>
+ <div class="form-group">
+ <label for="post-music">Müzik Önerileri (Spotify/YouTube URL’leri, virgülle ayırın)</label>
+ <input type="text" id="post-music" class="form-control" placeholder="https://open.spotify.com/..., https://youtube.com/...">
+ </div>
+ <button type="submit" class="btn btn-primary" id="submit-post">Yayınla</button>
+ <button type="button" class="btn btn-primary hidden" id="clone-post">Klonla</button>
+ </form>
+ <form id="category-form" class="admin-form hidden">
+ <div class="form-group">
+ <label for="category-name">Kategori Adı</label>
+ <input type="text" id="category-name" class="form-control" required aria-required="true">
+ </div>
+ <div class="form-group">
+ <label for="category-color">Renk (Hex Kodu)</label>
+ <input type="text" id="category-color" class="form-control" placeholder="#2196f3" required aria-required="true">
+ </div>
+ <div class="form-group">
+ <label for="category-icon">Simge (Font Awesome, örn. fa-calculator)</label>
+ <input type="text" id="category-icon" class="form-control" placeholder="fa-file-alt" required aria-required="true">
+ </div>
+ <button type="submit" class="btn btn-primary">Kategoriyi Ekle</button>
+ </form>
+ <div id="manage-posts" class="manage-posts hidden">
+ <h3>Yazıları Yönet</h3>
+ <ul id="post-list" class="post-list"></ul>
+ </div>
+ </section>
+
+ <section id="login-section" class="login-form hidden">
+ <h2>Admin Girişi</h2>
+ <div class="form-group">
+ <label for="admin-password">Şifre</label>
+ <input type="password" id="admin-password" class="form-control" required aria-required="true">
+ </div>
+ <button id="login-button" class="btn btn-primary">Giriş Yap</button>
+ </section>
+
+ <section id="post-detail" class="post-detail hidden">
+ <a href="#" class="back-button" id="back-button"><i class="fas fa-arrow-left"></i> Geri Dön</a>
+ <div class="post-header">
+ <h1 id="detail-title" class="post-title"></h1>
+ <div class="post-meta">
+ <span id="detail-date"></span>
+ <span id="detail-category"></span>
+ <span id="detail-reading-time"></span>
+ </div>
+ <div class="card-tags" id="detail-tags"></div>
+ <button class="favorite-btn" id="detail-favorite" aria-label="Favorilere Ekle"><i class="fas fa-heart"></i></button>
+ </div>
+ <div id="detail-content" class="post-content"></div>
+ <div id="detail-music" class="music-section hidden"></div>
+ </section>
+
+ <section id="favorites-section" class="archive-section hidden">
+ <h2>Favorilerim</h2>
+ <div class="blog-grid" id="favorites-container"></div>
+ </section>
+
+ <section id="archive-section" class="archive-section hidden">
+ <h2>Arşiv</h2>
+ <div id="archive-list"></div>
+ </section>
+
+ <section id="blog-section" class="filters">
+ <div class="filter-group">
+ <h3>Kategoriler</h3>
+ <div id="category-tags" class="tags">
+ <div class="tag active" data-category="all">Tümü</div>
+ </div>
+ </div>
+ <div class="filter-group">
+ <h3>Etiketler</h3>
+ <div class="tags" id="tag-cloud"></div>
+ </div>
+ <div class="filter-group">
+ <h3>Arama</h3>
+ <input type="text" class="search-box" id="search-input" placeholder="Konu başlığı, içerik veya etiket ara..." aria-label="Arama">
+ </div>
+ </section>
+
+ <section class="blog-grid" id="blog-container"></section>
+ <div class="pagination" id="pagination"></div>
+ </main>
+
+ <footer>
+ <div class="container">
+ <div class="footer-content">
+ <p>&copy; 2025 MOLKO Blog. Tüm hakları saklıdır.</p>
+ <div class="social-links">
+ <a href="https://github.com" aria-label="GitHub"><i class="fab fa-github"></i></a>
+ <a href="https://linkedin.com" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+ <a href="https://twitter.com" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+ </div>
+ </div>
+ </div>
+ </footer>
+
+ <script>
+ // State Management
+ let blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [
+ {
+ id: 1,
+ title: "Osmanlı İmparatorluğu'nun Yükselişi",
+ content: `<p>Osmanlı İmparatorluğu, 13. yüzyılın sonlarında Kuzeybatı Anadolu'da kurulmuş ve 600 yıldan fazla varlığını sürdürmüş bir devlettir.</p>
+ <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Ottoman_Empire_in_1683.png/800px-Ottoman_Empire_in_1683.png" alt="Osmanlı Haritası" class="image-medium image-center">
+ <p>Osmanlı'nın yükseliş dönemi özellikle İstanbul'un fethi (1453) ile başlamıştır.</p>`,
+ excerpt: "Osmanlı İmparatorluğu'nun nasıl küçük bir beylikten büyük bir imparatorluğa dönüştüğünü keşfedin.",
+ category: "tarih",
+ tags: ["osmanlı", "imparatorluk", "yükseliş"],
+ date: "2023-05-15",
+ image: "",
+ music: ["https://open.spotify.com/embed/playlist/37i9dQZF1DWYV7OOaGhoH0"]
+ },
+ {
+ id: 2,
+ title: "Türkiye'nin Coğrafi Bölgeleri",
+ content: `<p>Türkiye, fiziki coğrafya özellikleri bakımından yedi coğrafi bölgeye ayrılmıştır.</p>
+ <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Turkey_geographical_regions.png/800px-Turkey_geographical_regions.png" alt="Türkiye Bölgeleri" class="image-large image-center">
+ <p>Karadeniz Bölgesi, yeşil doğası ve bol yağışlı iklimiyle öne çıkar.</p>`,
+ excerpt: "Türkiye'nin yedi coğrafi bölgesinin özellikleri, iklimi ve bitki örtüsü hakkında bilgiler.",
+ category: "cografya",
+ tags: ["türkiye", "bölgeler", "coğrafi"],
+ date: "2023-05-22",
+ image: "",
+ music: ["https://www.youtube.com/embed/dQw4w9WgXcQ"]
+ },
+ {
+ id: 3,
+ title: "Yapay Zeka ve Geleceği",
+ content: `<p>Yapay zeka (AI), son yıllarda teknoloji dünyasının en hızlı gelişen alanlarından biridir.</p>
+ <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/800px-ChatGPT_logo.svg.png" alt="Yapay Zeka" class="image-small image-left">
+ <p>Yapay zekanın sağlık sektöründen ulaşıma kadar devrim yaratması bekleniyor.</p>`,
+ excerpt: "Yapay zeka teknolojilerinin gelişimi ve gelecekte hayatımızı nasıl etkileyeceği.",
+ category: "teknoloji",
+ tags: ["yapay zeka", "teknoloji", "gelecek"],
+ date: "2023-05-30",
+ image: "",
+ music: ["https://open.spotify.com/embed/playlist/37i9dQZF1DX0jgyAiPl8Af"]
+ }
+ ];
+
+ let categories = JSON.parse(localStorage.getItem('categories')) || [
+ { name: 'tarih', color: '#3f51b5', darkColor: '#5c6bc0', icon: 'fa-landmark' },
+ { name: 'cografya', color: '#009688', darkColor: '#4db6ac', icon: 'fa-globe-europe' },
+ { name: 'teknoloji', color: '#ff5722', darkColor: '#ff8a65', icon: 'fa-microchip' },
+ { name: 'edebiyat', color: '#9c27b0', darkColor: '#ba68c8', icon: 'fa-book' },
+ { name: 'matematik', color: '#2196f3', darkColor: '#42a5f5', icon: 'fa-calculator' },
+ { name: 'biyoloji', color: '#4caf50', darkColor: '#81c784', icon: 'fa-leaf' }
+ ];
+
+ let allTags = [...new Set(blogPosts.flatMap(post => post.tags))];
+ let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+ let activeCategory = 'all';
+ let activeTags = [];
+ let currentPage = 1;
+ const postsPerPage = 6;
+ let isAdmin = false;
+ let editingPostId = null;
+ let draftInterval = null;
+
+ // DOM Elements
+ const themeToggle = document.querySelector('.theme-toggle');
+ const backgroundToggle = document.querySelector('.background-toggle');
+ const adminToggle = document.querySelector('.admin-toggle');
+ const favoritesToggle = document.querySelector('.favorites-toggle');
+ const adminSection = document.getElementById('admin-section');
+ const loginSection = document.getElementById('login-section');
+ const postDetail = document.getElementById('post-detail');
+ const blogSection = document.getElementById('blog-section');
+ const blogContainer = document.getElementById('blog-container');
+ const favoritesSection = document.getElementById('favorites-section');
+ const archiveSection = document.getElementById('archive-section');
+ const tagCloud = document.getElementById('tag-cloud');
+ const searchInput = document.getElementById('search-input');
+ const pagination = document.getElementById('pagination');
+ const editor = document.getElementById('post-content');
+ const imageInput = document.getElementById('post-image');
+ const imagePreview = document.getElementById('image-preview');
+ const tagInput = document.getElementById('post-tags');
+ const tagSuggestions = document.getElementById('tag-suggestions');
+ const categoryTags = document.getElementById('category-tags');
+ const navMenu = document.getElementById('nav-menu');
+ const adminForm = document.getElementById('admin-form');
+ const submitPostBtn = document.getElementById('submit-post');
+ const clonePostBtn = document.getElementById('clone-post');
+ const musicInput = document.getElementById('post-music');
+ const sizeSelect = document.querySelector('.image-size');
+ const alignSelect = document.querySelector('.image-align');
+
+ // Theme Toggle
+ function toggleTheme() {
+ const newTheme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+ document.body.dataset.theme = newTheme;
+ themeToggle.innerHTML = newTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+ localStorage.setItem('theme', newTheme);
+ }
+
+ themeToggle.addEventListener('click', toggleTheme);
+
+ const savedTheme = localStorage.getItem('theme');
+ if (savedTheme) {
+ document.body.dataset.theme = savedTheme;
+ themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+ }
+
+ // Background Toggle
+ function toggleBackground() {
+ const url = prompt('Arka plan resmi URL’sini girin (boş bırakırsanız varsayılan arka plan uygulanır):');
+ const newBackground = url ? `url('${url}')` : 'none';
+ document.documentElement.style.setProperty('--background-image', newBackground);
+ localStorage.setItem('backgroundImage', newBackground);
+ }
+
+ backgroundToggle.addEventListener('click', toggleBackground);
+
+ const savedBackground = localStorage.getItem('backgroundImage');
+ if (savedBackground) {
+ document.documentElement.style.setProperty('--background-image', savedBackground);
+ }
+
+ // Admin Panel Toggle
+ adminToggle.addEventListener('click', () => {
+ if (isAdmin) {
+ adminSection.classList.add('hidden');
+ loginSection.classList.add('hidden');
+ blogSection.classList.remove('hidden');
+ blogContainer.classList.remove('hidden');
+ isAdmin = false;
+ adminToggle.innerHTML = '<i class="fas fa-lock"></i>';
+ clearInterval(draftInterval);
+ } else {
+ loginSection.classList.remove('hidden');
+ adminSection.classList.add('hidden');
+ blogSection.classList.add('hidden');
+ blogContainer.classList.add('hidden');
+ }
+ postDetail.classList.add('hidden');
+ favoritesSection.classList.add('hidden');
+ archiveSection.classList.add('hidden');
+ });
+
+ // Admin Login
+ document.getElementById('login-button').addEventListener('click', () => {
+ const password = document.getElementById('admin-password').value;
+ if (password === 'admin') {
+ isAdmin = true;
+ loginSection.classList.add('hidden');
+ adminSection.classList.remove('hidden');
+ blogSection.classList.add('hidden');
+ blogContainer.classList.add('hidden');
+ adminToggle.innerHTML = '<i class="fas fa-sign-out-alt"></i>';
+ startAutoSave();
+ document.querySelector('.tab-btn[data-tab="post"]').click();
+ } else {
+ alert('Şifre yanlış!');
+ }
+ });
+
+ // Admin Tabs
+ function switchTab(tab) {
+ document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+ document.querySelectorAll('.admin-form, .manage-posts').forEach(el => el.classList.add('hidden'));
+
+ const tabBtn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+ if (!tabBtn) {
+ console.error(`Sekme butonu bulunamadı: ${tab}`);
+ return;
+ }
+ tabBtn.classList.add('active');
+
+ if (tab === 'post') {
+ document.getElementById('admin-form').classList.remove('hidden');
+ resetPostForm();
+ } else if (tab === 'category') {
+ document.getElementById('category-form').classList.remove('hidden');
+ } else if (tab === 'manage') {
+ document.getElementById('manage-posts').classList.remove('hidden');
+ renderPostList();
+ }
+ }
+
+ document.querySelectorAll('.tab-btn').forEach(btn => {
+ btn.addEventListener('click', () => {
+ switchTab(btn.dataset.tab);
+ });
+ });
+
+ // Image Preview
+ imageInput.addEventListener('change', () => {
+ const file = imageInput.files[0];
+ if (file) {
+ const reader = new FileReader();
+ reader.onload = (e) => {
+ imagePreview.src = e.target.result;
+ imagePreview.classList.remove('hidden');
+ };
+ reader.readAsDataURL(file);
+ } else {
+ imagePreview.classList.add('hidden');
+ }
+ saveDraft();
+ });
+
+ // Rich Text Editor
+ document.querySelectorAll('.editor-button:not(.preview-btn)').forEach(button => {
+ button.addEventListener('click', () => {
+ const command = button.dataset.command;
+ if (command === 'insertImage') {
+ const fileInput = document.createElement('input');
+ fileInput.type = 'file';
+ fileInput.accept = 'image/*';
+ fileInput.onchange = () => {
+ const file = fileInput.files[0];
+ if (file) {
+ const reader = new FileReader();
+ reader.onload = (e) => {
+ const img = document.createElement('img');
+ img.src = e.target.result;
+ img.alt = 'Görsel';
+ img.classList.add(`image-${sizeSelect.value}`, `image-${alignSelect.value}`);
+ editor.appendChild(img);
+ saveDraft();
+ };
+ reader.readAsDataURL(file);
+ }
+ };
+ fileInput.click();
+ } else if (command === 'insertImageUrl') {
+ const url = prompt('Görsel URL’sini girin (örn. https://example.com/image.jpg):');
+ if (url) {
+ const img = document.createElement('img');
+ img.src = url;
+ img.alt = 'Görsel';
+ img.classList.add(`image-${sizeSelect.value}`, `image-${alignSelect.value}`);
+ editor.appendChild(img);
+ saveDraft();
+ }
+ } else {
+ document.execCommand(command, false, null);
+ saveDraft();
+ }
+ editor.focus();
+ });
+ });
+
+ // Keyboard Shortcuts
+ editor.addEventListener('keydown', (e) => {
+ if (e.ctrlKey) {
+ if (e.key === 'b') {
+ e.preventDefault();
+ document.execCommand('bold', false, null);
+ } else if (e.key === 'i') {
+ e.preventDefault();
+ document.execCommand('italic', false, null);
+ }
+ }
+ saveDraft();
+ });
+
+ // Auto Save Draft
+ function startAutoSave() {
+ draftInterval = setInterval(saveDraft, 10000);
+ }
+
+ function saveDraft() {
+ const draft = {
+ id: editingPostId,
+ title: document.getElementById('post-title').value,
+ category: document.getElementById('post-category').value,
+ content: editor.innerHTML,
+ tags: document.getElementById('post-tags').value,
+ image: imagePreview.src && !imagePreview.classList.contains('hidden') ? imagePreview.src : '',
+ music: document.getElementById('post-music').value
+ };
+ localStorage.setItem('draft', JSON.stringify(draft));
+ }
+
+ function loadDraft() {
+ const draft = JSON.parse(localStorage.getItem('draft'));
+ if (draft && !editingPostId) {
+ document.getElementById('post-title').value = draft.title || '';
+ document.getElementById('post-category').value = draft.category || categories[0].name;
+ editor.innerHTML = draft.content || '';
+ document.getElementById('post-tags').value = draft.tags || '';
+ document.getElementById('post-music').value = draft.music || '';
+ if (draft.image) {
+ imagePreview.src = draft.image;
+ imagePreview.classList.remove('hidden');
+ }
+ }
+ }
+
+ // Post Preview
+ document.querySelector('.preview-btn').addEventListener('click', () => {
+ const title = document.getElementById('post-title').value;
+ const content = editor.innerHTML;
+ const category = document.getElementById('post-category').value;
+ const tags = tagInput.value.split(',').map(tag => tag.trim()).filter(tag => tag);
+ const music = musicInput.value.split(',').map(url => url.trim()).filter(url => url);
+ const previewContainer = document.getElementById('preview-container');
+ const formattedDate = new Date().toLocaleDateString('tr-TR', {
+ day: 'numeric',
+ month: 'long',
+ year: 'numeric'
+ });
+ const readingTime = calculateReadingTime(content);
+
+ previewContainer.innerHTML = `
+ <h3>${title || 'Başlık'}</h3>
+ <div class="post-meta">
+ <span>${formattedDate}</span>
+ <span>${category.charAt(0).toUpperCase() + category.slice(1)}</span>
+ <span>${readingTime} dk okuma</span>
+ </div>
+ <div class="card-tags">${tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
+ <div class="post-content">${content || 'İçerik'}</div>
+ ${music.length ? `
+ <div class="music-section">
+ <h3>Müzik Önerileri</h3>
+ ${music.map(url => `
+ <div class="music-player">
+ ${url.includes('spotify') ? `<iframe src="${url}" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>` : 
+ `<iframe src="${url.replace('watch?v=', 'embed/')}" height="80" frameborder="0" allow="autoplay; encrypted-media"></iframe>`}
+ </div>
+ `).join('')}
+ </div>
+ ` : ''}
+ `;
+ previewContainer.classList.remove('hidden');
+ });
+
+ // Tag Suggestions
+ function updateTagSuggestions() {
+ const input = tagInput.value.toLowerCase();
+ tagSuggestions.innerHTML = '';
+ if (input) {
+ const suggestions = allTags.filter(tag => tag.toLowerCase().includes(input) && !tagInput.value.split(',').map(t => t.trim()).includes(tag));
+ const content = editor.innerHTML.replace(/<[^>]*>/g, '').toLowerCase();
+ const contentSuggestions = content.split(/\s+/).filter(word => word.length > 3 && !allTags.includes(word) && word.includes(input)).slice(0, 3);
+ const allSuggestions = [...new Set([...suggestions, ...contentSuggestions])];
+ if (allSuggestions.length) {
+ tagSuggestions.classList.remove('hidden');
+ allSuggestions.forEach(tag => {
+ const div = document.createElement('div');
+ div.classList.add('tag-suggestion');
+ div.textContent = tag;
+ div.addEventListener('click', () => {
+ const currentTags = tagInput.value.split(',').map(t => t.trim()).filter(t => t);
+ currentTags.push(tag);
+ tagInput.value = currentTags.join(', ');
+ tagSuggestions.classList.add('hidden');
+ tagInput.focus();
+ });
+ tagSuggestions.appendChild(div);
+ });
+ } else {
+ tagSuggestions.classList.add('hidden');
+ }
+ } else {
+ tagSuggestions.classList.add('hidden');
+ }
+ }
+
+ tagInput.addEventListener('input', updateTagSuggestions);
+ tagInput.addEventListener('blur', () => setTimeout(() => tagSuggestions.classList.add('hidden'), 200));
+
+ // Calculate Reading Time
+ function calculateReadingTime(content) {
+ const words = content.replace(/<[^>]*>/g, '').split(/\s+/).filter(word => word.length > 0).length;
+ return Math.ceil(words / 200);
+ }
+
+ // Render Categories
+ function updateCategories() {
+ navMenu.innerHTML = `
+ <li><a href="#" class="nav-link active" data-category="all">Tümü</a></li>
+ ${categories.map(cat => `<li><a href="#" class="nav-link" data-category="${cat.name}">${cat.name.charAt(0).toUpperCase() + cat.name.slice(1)}</a></li>`).join('')}
+ <li><a href="#" class="nav-link" data-section="favorites">Favoriler</a></li>
+ <li><a href="#" class="nav-link" data-section="archive">Arşiv</a></li>
+ `;
+
+ categoryTags.innerHTML = `<div class="tag active" data-category="all">Tümü</div>`;
+ categories.forEach(cat => {
+ categoryTags.innerHTML += `<div class="tag" data-category="${cat.name}">${cat.name.charAt(0).toUpperCase() + cat.name.slice(1)}</div>`;
+ });
+
+ const categorySelect = document.getElementById('post-category');
+ categorySelect.innerHTML = categories.map(cat => `<option value="${cat.name}">${cat.name.charAt(0).toUpperCase() + cat.name.slice(1)}</option>`).join('');
+
+ let css = `
+ :root {
+ ${categories.map(cat => `--${cat.name}-color: ${cat.color};`).join('')}
+ }
+ [data-theme="dark"] {
+ ${categories.map(cat => `--${cat.name}-color: ${cat.darkColor};`).join('')}
+ }
+ ${categories.map(cat => `.${cat.name} { background-color: var(--${cat.name}-color); }`).join('')}
+ `;
+ const styleSheet = document.createElement('style');
+ styleSheet.innerText = css;
+ document.head.appendChild(styleSheet);
+
+ document.querySelectorAll('[data-category]').forEach(element => {
+ element.addEventListener('click', (e) => {
+ e.preventDefault();
+ activeCategory = element.dataset.category;
+ currentPage = 1;
+ document.querySelectorAll('.tag[data-category], .nav-link').forEach(el => el.classList.remove('active'));
+ element.classList.add('active');
+ document.querySelector(`.nav-link[data-category="${activeCategory}"]`)?.classList.add('active');
+ showSection('blog');
+ applyFilters();
+ });
+ });
+
+ document.querySelectorAll('[data-section]').forEach(element => {
+ element.addEventListener('click', (e) => {
+ e.preventDefault();
+ showSection(element.dataset.section);
+ });
+ });
+ }
+
+ // Render Tags
+ function renderTags() {
+ allTags = [...new Set(blogPosts.flatMap(post => post.tags))];
+ tagCloud.innerHTML = '';
+ allTags.forEach(tag => {
+ const tagElement = document.createElement('div');
+ tagElement.classList.add('tag');
+ tagElement.textContent = tag;
+ tagElement.dataset.tag = tag;
+ if (activeTags.includes(tag)) tagElement.classList.add('active');
+ tagCloud.appendChild(tagElement);
+ });
+
+ tagCloud.querySelectorAll('.tag').forEach(tag => {
+ tag.addEventListener('click', () => {
+ const tagName = tag.dataset.tag;
+ if (activeTags.includes(tagName)) {
+ activeTags = activeTags.filter(t => t !== tagName);
+ tag.classList.remove('active');
+ } else {
+ activeTags.push(tagName);
+ tag.classList.add('active');
+ }
+ currentPage = 1;
+ applyFilters();
+ });
+ });
+ }
+
+ // Render Posts
+ function renderPosts(posts, container = blogContainer) {
+ container.innerHTML = '';
+ if (!posts || posts.length === 0) {
+ container.innerHTML = '<p>Henüz yazı bulunmamaktadır.</p>';
+ pagination.classList.add('hidden');
+ return;
+ }
+
+ const start = (currentPage - 1) * postsPerPage;
+ const end = start + postsPerPage;
+ const paginatedPosts = posts.slice(start, end);
+
+ paginatedPosts.forEach(post => {
+ const postElement = document.createElement('article');
+ postElement.classList.add('blog-card');
+ postElement.dataset.category = post.category;
+ postElement.dataset.tags = post.tags.join(',');
+ postElement.dataset.id = post.id;
+
+ const formattedDate = new Date(post.date).toLocaleDateString('tr-TR', {
+ day: 'numeric',
+ month: 'long',
+ year: 'numeric'
+ });
+ const readingTime = calculateReadingTime(post.content);
+ const isFavorite = favorites.includes(post.id);
+
+ const imageHtml = post.image
+ ? `<div class="card-img" style ="background-image: url('${post.image}')"></div>`
+ : `<div class="card-img ${post.category}"><i class="fas ${categories.find(cat => cat.name === post.category)?.icon || 'fa-file-alt'}"></i></div>`;
+
+ postElement.innerHTML = `
+ ${imageHtml}
+ <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${post.id}" aria-label="Favorilere Ekle"><i class="fas fa-heart"></i></button>
+ <div class="card-content">
+ <h3>${post.title}</h3>
+ <div class="date">${formattedDate}</div>
+ <div class="reading-time">${readingTime} dk okuma</div>
+ <div class="excerpt">${post.excerpt}</div>
+ <div class="card-tags">
+ ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+ </div>
+ </div>
+ `;
+ container.appendChild(postElement);
+ });
+
+ container.querySelectorAll('.card-content, .card-img').forEach(element => {
+ element.addEventListener('click', (e) => {
+ const postId = parseInt(element.closest('.blog-card').dataset.id);
+ showPostDetail(postId);
+ });
+ });
+
+ container.querySelectorAll('.favorite-btn').forEach(btn => {
+ btn.addEventListener('click', (e) => {
+ e.stopPropagation();
+ const id = parseInt(btn.dataset.id);
+ toggleFavorite(id, btn);
+ });
+ });
+
+ renderPagination(posts.length, container);
+ }
+
+ // Toggle Favorite
+ function toggleFavorite(id, btn) {
+ if (favorites.includes(id)) {
+ favorites = favorites.filter(fav => fav !== id);
+ btn.classList.remove('active');
+ } else {
+ favorites.push(id);
+ btn.classList.add('active');
+ }
+ localStorage.setItem('favorites', JSON.stringify(favorites));
+ if (favoritesSection.classList.contains('hidden')) return;
+ renderPosts(blogPosts.filter(post => favorites.includes(post.id)), document.getElementById('favorites-container'));
+ }
+
+ // Render Pagination
+ function renderPagination(totalPosts, container = blogContainer) {
+ pagination.innerHTML = '';
+ const totalPages = Math.ceil(totalPosts / postsPerPage);
+ if (totalPages <= 1) {
+ pagination.classList.add('hidden');
+ return;
+ }
+
+ const prevButton = document.createElement('button');
+ prevButton.textContent = 'Önceki';
+ prevButton.disabled = currentPage === 1;
+ prevButton.addEventListener('click', () => {
+ if (currentPage > 1) {
+ currentPage--;
+ applyFilters();
+ }
+ });
+ pagination.appendChild(prevButton);
+
+ const pageInfo = document.createElement('span');
+ pageInfo.textContent = `${currentPage} / ${totalPages}`;
+ pagination.appendChild(pageInfo);
+
+ const nextButton = document.createElement('button');
+ nextButton.textContent = 'Sonraki';
+ nextButton.disabled = currentPage === totalPages;
+ nextButton.addEventListener('click', () => {
+ if (currentPage < totalPages) {
+ currentPage++;
+ applyFilters();
+ }
+ });
+ pagination.appendChild(nextButton);
+
+ pagination.classList.toggle('hidden', container !== blogContainer);
+ }
+
+ // Show Post Detail
+ function showPostDetail(postId) {
+ const post = blogPosts.find(p => p.id === postId);
+ if (!post) return;
+
+ const formattedDate = new Date(post.date).toLocaleDateString('tr-TR', {
+ day: 'numeric',
+ month: 'long',
+ year: 'numeric'
+ });
+ const readingTime = calculateReadingTime(post.content);
+ const isFavorite = favorites.includes(post.id);
+
+ document.getElementById('detail-title').textContent = post.title;
+ document.getElementById('detail-date').textContent = formattedDate;
+ document.getElementById('detail-category').textContent = post.category.charAt(0).toUpperCase() + post.category.slice(1);
+ document.getElementById('detail-reading-time').textContent = `${readingTime} dk okuma`;
+ document.getElementById('detail-content').innerHTML = post.content;
+ document.getElementById('detail-tags').innerHTML = post.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+ document.getElementById('detail-favorite').classList.toggle('active', isFavorite);
+ document.getElementById('detail-favorite').dataset.id = post.id;
+
+ const musicSection = document.getElementById('detail-music');
+ if (post.music && post.music.length) {
+ musicSection.innerHTML = `
+ <h3>Müzik Önerileri</h3>
+ ${post.music.map(url => `
+ <div class="music-player">
+ ${url.includes('spotify') ? `<iframe src="${url}" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>` : 
+ `<iframe src="${url.replace('watch?v=', 'embed/')}" height="80" frameborder="0" allow="autoplay; encrypted-media"></iframe>`}
+ </div>
+ `).join('')}
+ `;
+ musicSection.classList.remove('hidden');
+ } else {
+ musicSection.classList.add('hidden');
+ }
+
+ postDetail.classList.remove('hidden');
+ blogSection.classList.add('hidden');
+ blogContainer.classList.add('hidden');
+ adminSection.classList.add('hidden');
+ loginSection.classList.add('hidden');
+ favoritesSection.classList.add('hidden');
+ archiveSection.classList.add('hidden');
+ window.scrollTo({ top: 0, behavior: 'smooth' });
+ }
+
+ // Show Section
+ function showSection(section) {
+ postDetail.classList.add('hidden');
+ blogSection.classList.add('hidden');
+ blogContainer.classList.add('hidden');
+ favoritesSection.classList.add('hidden');
+ archiveSection.classList.add('hidden');
+ adminSection.classList.add('hidden');
+ loginSection.classList.add('hidden');
+
+ document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+ if (section === 'blog') {
+ blogSection.classList.remove('hidden');
+ blogContainer.classList.remove('hidden');
+ document.querySelector(`.nav-link[data-category="${activeCategory}"]`)?.classList.add('active');
+ applyFilters();
+ } else if (section === 'favorites') {
+ favoritesSection.classList.remove('hidden');
+ document.querySelector('.nav-link[data-section="favorites"]').classList.add('active');
+ renderPosts(blogPosts.filter(post => favorites.includes(post.id)), document.getElementById('favorites-container'));
+ } else if (section === 'archive') {
+ archiveSection.classList.remove('hidden');
+ document.querySelector('.nav-link[data-section="archive"]').classList.add('active');
+ renderArchive();
+ }
+ }
+
+ // Render Archive
+ function renderArchive() {
+ const archiveList = document.getElementById('archive-list');
+ archiveList.innerHTML = '';
+ const postsByYearMonth = {};
+
+ blogPosts.forEach(post => {
+ const date = new Date(post.date);
+ const yearMonth = `${date.getFullYear()} ${date.toLocaleString('tr-TR', { month: 'long' })}`;
+ if (!postsByYearMonth[yearMonth]) {
+ postsByYearMonth[yearMonth] = [];
+ }
+ postsByYearMonth[yearMonth].push(post);
+ });
+
+ Object.keys(postsByYearMonth).sort().reverse().forEach(yearMonth => {
+ const ul = document.createElement('ul');
+ ul.classList.add('archive-list');
+ ul.innerHTML = `<h3>${yearMonth}</h3>`;
+ postsByYearMonth[yearMonth].forEach(post => {
+ ul.innerHTML += `<li><a href="#" data-id="${post.id}">${post.title}</a></li>`;
+ });
+ archiveList.appendChild(ul);
+ });
+
+ archiveList.querySelectorAll('a').forEach(link => {
+ link.addEventListener('click', (e) => {
+ e.preventDefault();
+ showPostDetail(parseInt(link.dataset.id));
+ });
+ });
+ }
+
+ // Back Button
+ document.getElementById('back-button').addEventListener('click', (e) => {
+ e.preventDefault();
+ showSection('blog');
+ });
+
+ // Favorites Toggle
+ favoritesToggle.addEventListener('click', () => showSection('favorites'));
+
+ // Detail Favorite Button
+ document.getElementById('detail-favorite').addEventListener('click', (e) => {
+ e.stopPropagation();
+ const id = parseInt(e.target.closest('button').dataset.id);
+ toggleFavorite(id, e.target.closest('button'));
+ });
+
+ // Filters
+ searchInput.addEventListener('input', () => {
+ currentPage = 1;
+ applyFilters();
+ });
+
+ function applyFilters() {
+ const searchText = searchInput.value.toLowerCase();
+ const filteredPosts = blogPosts.filter(post => {
+ if (activeCategory !== 'all' && post.category !== activeCategory) return false;
+ if (activeTags.length && !activeTags.some(tag => post.tags.includes(tag))) return false;
+ if (searchText) {
+ const contentText = post.content.replace(/<[^>]*>/g, '').toLowerCase();
+ return (
+ post.title.toLowerCase().includes(searchText) ||
+ post.excerpt.toLowerCase().includes(searchText) ||
+ contentText.includes(searchText) ||
+ post.tags.some(tag => tag.toLowerCase().includes(searchText))
+ );
+ }
+ return true;
+ });
+
+ renderPosts(filteredPosts);
+ }
+
+ // Validate Music URLs
+ function validateMusicUrls(urls) {
+ return urls.filter(url => {
+ const isValid = url.includes('spotify.com') || url.includes('youtube.com') || url.includes('youtu.be');
+ if (!isValid) {
+ console.warn(`Geçersiz müzik URL'si: ${url}`);
+ }
+ return isValid;
+ });
+ }
+
+ // Admin Form Submission
+ adminForm.addEventListener('submit', async (e) => {
+ e.preventDefault();
+
+ const title = document.getElementById('post-title').value;
+ const category = document.getElementById('post-category').value;
+ const content = editor.innerHTML;
+ const tags = tagInput.value.split(',').map(tag => tag.trim()).filter(tag => tag);
+ const music = validateMusicUrls(musicInput.value.split(',').map(url => url.trim()).filter(url => url));
+ const date = new Date().toISOString().split('T')[0];
+ const excerpt = content.replace(/<[^>]*>/g, '').substring(0, 100) + '...';
+
+ let imageUrl = '';
+ if (imageInput.files[0]) {
+ imageUrl = await new Promise(resolve => {
+ const reader = new FileReader();
+ reader.onload = (e) => resolve(e.target.result);
+ reader.readAsDataURL(imageInput.files[0]);
+ });
+ } else if (imagePreview.src && !imagePreview.classList.contains('hidden')) {
+ imageUrl = imagePreview.src;
+ }
+
+ const post = {
+ id: editingPostId || Math.max(...blogPosts.map(post => post.id), 0) + 1,
+ title,
+ content,
+ excerpt,
+ category,
+ tags,
+ date,
+ image: imageUrl,
+ music
+ };
+
+ if (editingPostId) {
+ const index = blogPosts.findIndex(p => p.id === editingPostId);
+ blogPosts[index] = post;
+ } else {
+ blogPosts.unshift(post);
+ }
+
+ tags.forEach(tag => {
+ if (!allTags.includes(tag)) allTags.push(tag);
+ });
+
+ localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
+ localStorage.removeItem('draft');
+ renderTags();
+ resetPostForm();
+ applyFilters();
+ alert(editingPostId ? 'Yazı güncellendi!' : 'Yazı eklendi!');
+ showSection('blog');
+ isAdmin = false;
+ adminToggle.innerHTML = '<i class="fas fa-lock"></i>';
+ clearInterval(draftInterval);
+ });
+
+ // Clone Post
+ clonePostBtn.addEventListener('click', () => {
+ const title = document.getElementById('post-title').value;
+ if (title) {
+ editingPostId = null;
+ document.getElementById('post-id').value = '';
+ submitPostBtn.textContent = 'Yayınla';
+ clonePostBtn.classList.add('hidden');
+ document.getElementById('post-title').value = `Kopya: ${title}`;
+ saveDraft();
+ }
+ });
+
+ // Reset Post Form
+ function resetPostForm() {
+ editingPostId = null;
+ document.getElementById('post-id').value = '';
+ adminForm.reset();
+ editor.innerHTML = '';
+ imagePreview.classList.add('hidden');
+ musicInput.value = '';
+ submitPostBtn.textContent = 'Yayınla';
+ clonePostBtn.classList.add('hidden');
+ document.getElementById('preview-container').classList.add('hidden');
+ sizeSelect.value = 'medium';
+ alignSelect.value = 'center';
+ loadDraft();
+ }
+
+ // Render Post List for Management
+ function renderPostList() {
+ const postList = document.getElementById('post-list');
+ postList.innerHTML = '';
+ blogPosts.forEach(post => {
+ const li = document.createElement('li');
+ li.innerHTML = `
+ <a href="#" data-id="${post.id}">${post.title}</a>
+ <button class="btn btn-primary" data-id="${post.id}" data-action="edit">Düzenle</button>
+ <button class="btn btn-danger" data-id="${post.id}" data-action="delete">Sil</button>
+ `;
+ postList.appendChild(li);
+ });
+
+ postList.querySelectorAll('a').forEach(link => {
+ link.addEventListener('click', (e) => {
+ e.preventDefault();
+ showPostDetail(parseInt(link.dataset.id));
+ });
+ });
+
+ postList.querySelectorAll('[data-action="edit"]').forEach(btn => {
+ btn.addEventListener('click', (e) => {
+ e.stopPropagation();
+ const id = parseInt(btn .dataset.id);
+ editPost(id);
+ });
+ });
+
+ postList.querySelectorAll('[data-action="delete"]').forEach(btn => {
+ btn.addEventListener('click', (e) => {
+ e.stopPropagation();
+ const id = parseInt(btn.dataset.id);
+ if (confirm('Bu yazıyı silmek istediğinizden emin misiniz?')) {
+ blogPosts = blogPosts.filter(post => post.id !== id);
+ favorites = favorites.filter(fav => fav !== id);
+ localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
+ localStorage.setItem('favorites', JSON.stringify(favorites));
+ renderPostList();
+ renderTags();
+ applyFilters();
+ }
+ });
+ });
+ }
+
+ // Edit Post
+ function editPost(id) {
+ const post = blogPosts.find(p => p.id === id);
+ if (!post) return;
+
+ editingPostId = id;
+ document.getElementById('post-id').value = id;
+ document.getElementById('post-title').value = post.title;
+ document.getElementById('post-category').value = post.category;
+ editor.innerHTML = post.content;
+ document.getElementById('post-tags').value = post.tags.join(', ');
+ document.getElementById('post-music').value = post.music.join(', ');
+ if (post.image) {
+ imagePreview.src = post.image;
+ imagePreview.classList.remove('hidden');
+ } else {
+ imagePreview.classList.add('hidden');
+ }
+ submitPostBtn.textContent = 'Güncelle';
+ clonePostBtn.classList.remove('hidden');
+ switchTab('post');
+ saveDraft();
+ }
+
+ // Category Form Submission
+ document.getElementById('category-form').addEventListener('submit', (e) => {
+ e.preventDefault();
+ const name = document.getElementById('category-name').value.toLowerCase();
+ const color = document.getElementById('category-color').value;
+ const icon = document.getElementById('category-icon').value;
+ const darkColor = lightenColor(color, 20);
+
+ if (categories.some(cat => cat.name === name)) {
+ alert('Bu kategori zaten mevcut!');
+ return;
+ }
+
+ categories.push({ name, color, darkColor, icon });
+ localStorage.setItem('categories', JSON.stringify(categories));
+ updateCategories();
+ document.getElementById('category-form').reset();
+ alert('Kategori eklendi!');
+ switchTab('post');
+ });
+
+ // Lighten Color
+ function lightenColor(hex, percent) {
+ let r = parseInt(hex.slice(1, 3), 16);
+ let g = parseInt(hex.slice(3, 5), 16);
+ let b = parseInt(hex.slice(5, 7), 16);
+ r = Math.min(255, Math.round(r + (255 - r) * (percent / 100)));
+ g = Math.min(255, Math.round(g + (255 - g) * (percent / 100)));
+ b = Math.min(255, Math.round(b + (255 - b) * (percent / 100)));
+ return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+ }
+
+ // Initialize
+ updateCategories();
+ renderTags();
+ applyFilters();
+ loadDraft();
+ </script>
+</body>
+</html>
